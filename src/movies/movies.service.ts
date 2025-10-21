@@ -20,7 +20,10 @@ export class MoviesService {
     return movie;
   }
 
-  findAll(filters?: { genre?: string; minRating?: number; year?: number }): { movies: Movie[]; total: number } {
+  findAll(filters?: { genre?: string; minRating?: number; year?: number }): {
+    movies: Movie[];
+    total: number;
+  } {
     let filteredMovies = this.movies;
 
     if (filters?.genre) {
@@ -36,7 +39,9 @@ export class MoviesService {
     }
 
     if (filters?.year !== undefined) {
-      filteredMovies = filteredMovies.filter((movie) => movie.year === filters.year!);
+      filteredMovies = filteredMovies.filter(
+        (movie) => movie.year === filters.year!,
+      );
     }
 
     return {
@@ -60,12 +65,12 @@ export class MoviesService {
     }
 
     // Only update fields that are defined in the DTO
-    const updateData = Object.entries(updateMovieDto).reduce((acc, [key, value]) => {
+    const updateData: Partial<UpdateMovieDto> = {};
+    for (const [key, value] of Object.entries(updateMovieDto)) {
       if (value !== undefined) {
-        acc[key] = value;
+        (updateData as Record<string, unknown>)[key] = value;
       }
-      return acc;
-    }, {} as Record<string, any>);
+    }
 
     const updatedMovie = new Movie({
       ...this.movies[movieIndex],

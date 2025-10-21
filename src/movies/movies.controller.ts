@@ -59,7 +59,10 @@ export class MoviesController {
   }
 
   @Patch(':id')
-  updatePartial(@Param('id') id: string, @Body() updateMovieDto: UpdateMovieDto) {
+  updatePartial(
+    @Param('id') id: string,
+    @Body() updateMovieDto: UpdateMovieDto,
+  ) {
     return this.moviesService.update(id, updateMovieDto);
   }
 

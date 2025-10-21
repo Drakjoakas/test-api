@@ -1,7 +1,13 @@
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-argument */
+
 import { Test, TestingModule } from '@nestjs/testing';
 import { INestApplication, ValidationPipe } from '@nestjs/common';
 import request from 'supertest';
 import { AppModule } from '../src/app.module';
+import type { Response } from 'supertest';
 
 describe('Movies API (e2e)', () => {
   let app: INestApplication;
@@ -40,7 +46,7 @@ describe('Movies API (e2e)', () => {
           notes: 'Mind-blowing!',
         })
         .expect(201)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body).toHaveProperty('id');
           expect(res.body).toHaveProperty('createdAt');
           expect(res.body).toHaveProperty('updatedAt');
@@ -64,7 +70,7 @@ describe('Movies API (e2e)', () => {
           watchDate: '2024-02-01',
         })
         .expect(201)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body).toHaveProperty('id');
           expect(res.body.title).toBe('Inception');
           expect(res.body.rating).toBeUndefined();
@@ -148,7 +154,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/movies')
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body).toHaveProperty('movies');
           expect(res.body).toHaveProperty('total');
           expect(Array.isArray(res.body.movies)).toBe(true);
@@ -160,7 +166,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/movies?genre=Sci-Fi')
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body.movies.every((m) => m.genre === 'Sci-Fi')).toBe(true);
         });
     });
@@ -169,7 +175,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/movies?minRating=9')
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body.movies.every((m) => m.rating >= 9)).toBe(true);
         });
     });
@@ -178,7 +184,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/movies?year=1999')
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body.movies.every((m) => m.year === 1999)).toBe(true);
         });
     });
@@ -187,7 +193,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get('/api/movies?genre=Sci-Fi&minRating=9')
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(
             res.body.movies.every((m) => m.genre === 'Sci-Fi' && m.rating >= 9),
           ).toBe(true);
@@ -200,7 +206,7 @@ describe('Movies API (e2e)', () => {
       return request(app.getHttpServer())
         .get(`/api/movies/${createdMovieId}`)
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body.id).toBe(createdMovieId);
           expect(res.body).toHaveProperty('title');
         });
@@ -226,11 +232,11 @@ describe('Movies API (e2e)', () => {
           notes: 'Sequel',
         })
         .expect(200)
-        .expect((res) => {
-          expect(res.body.id).toBe(createdMovieId);
-          expect(res.body.title).toBe('The Matrix Reloaded');
-          expect(res.body.year).toBe(2003);
-          expect(res.body.rating).toBe(7.5);
+        .expect((res: Response) => {
+          expect(res.body?.id).toBe(createdMovieId);
+          expect(res.body?.title).toBe('The Matrix Reloaded');
+          expect(res.body?.year).toBe(2003);
+          expect(res.body?.rating).toBe(7.5);
         });
     });
 
@@ -256,7 +262,7 @@ describe('Movies API (e2e)', () => {
           notes: 'Updated notes again',
         })
         .expect(200)
-        .expect((res) => {
+        .expect((res: Response) => {
           expect(res.body.id).toBe(createdMovieId);
           expect(res.body.rating).toBe(8);
           expect(res.body.notes).toBe('Updated notes again');

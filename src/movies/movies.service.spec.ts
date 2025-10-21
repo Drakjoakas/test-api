@@ -134,7 +134,9 @@ describe('MoviesService', () => {
     });
 
     it('should throw NotFoundException when movie not found', () => {
-      expect(() => service.findOne('non-existent-id')).toThrow(NotFoundException);
+      expect(() => service.findOne('non-existent-id')).toThrow(
+        NotFoundException,
+      );
     });
   });
 
@@ -186,7 +188,9 @@ describe('MoviesService', () => {
     });
 
     it('should throw NotFoundException when movie not found', () => {
-      expect(() => service.remove('non-existent-id')).toThrow(NotFoundException);
+      expect(() => service.remove('non-existent-id')).toThrow(
+        NotFoundException,
+      );
     });
   });
 });

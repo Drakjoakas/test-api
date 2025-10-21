@@ -1,4 +1,12 @@
-import { IsString, IsNumber, IsOptional, Min, Max, IsDateString, MaxLength } from 'class-validator';
+import {
+  IsString,
+  IsNumber,
+  IsOptional,
+  Min,
+  Max,
+  IsDateString,
+  MaxLength,
+} from 'class-validator';
 
 export class CreateMovieDto {
   @IsString()
