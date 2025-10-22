@@ -1,6 +1,6 @@
 # Movies Watched API
 
-A NestJS REST API for tracking movies you've watched. Perfect for testing schema changes and test updates. :)
+A NestJS REST API for tracking movies you've watched. Perfect for testing schema changes and test updates. :(
 
 ## Features
 
