@@ -2,7 +2,7 @@ export class Movie {
   id: string;
   title: string;
   year: number;
-  genre: string;
+  genres: string[]; // Changed from single genre to array of genres
   rating?: number;
   watchDate: string;
   notes?: string;
