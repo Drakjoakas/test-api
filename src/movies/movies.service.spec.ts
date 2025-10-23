@@ -24,7 +24,7 @@ describe('MoviesService', () => {
       const createMovieDto: CreateMovieDto = {
         title: 'The Matrix',
         year: 1999,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         rating: 9,
         watchDate: '2024-01-15',
         notes: 'Mind-blowing!',
@@ -37,7 +37,7 @@ describe('MoviesService', () => {
       expect(movie).toHaveProperty('updatedAt');
       expect(movie.title).toBe('The Matrix');
       expect(movie.year).toBe(1999);
-      expect(movie.genre).toBe('Sci-Fi');
+      expect(movie.genres).toContain('Sci-Fi');
       expect(movie.rating).toBe(9);
       expect(movie.watchDate).toBe('2024-01-15');
       expect(movie.notes).toBe('Mind-blowing!');
@@ -47,7 +47,7 @@ describe('MoviesService', () => {
       const createMovieDto: CreateMovieDto = {
         title: 'Inception',
         year: 2010,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         watchDate: '2024-02-01',
       };
 
@@ -65,21 +65,21 @@ describe('MoviesService', () => {
       service.create({
         title: 'The Matrix',
         year: 1999,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         rating: 9,
         watchDate: '2024-01-15',
       });
       service.create({
         title: 'Inception',
         year: 2010,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         rating: 8.5,
         watchDate: '2024-02-01',
       });
       service.create({
         title: 'The Godfather',
         year: 1972,
-        genre: 'Crime',
+        genres: ['Crime'],
         rating: 10,
         watchDate: '2024-03-01',
       });
@@ -95,7 +95,7 @@ describe('MoviesService', () => {
       const result = service.findAll({ genre: 'Sci-Fi' });
       expect(result.movies).toHaveLength(2);
       expect(result.total).toBe(2);
-      expect(result.movies.every((m) => m.genre === 'Sci-Fi')).toBe(true);
+      expect(result.movies.every((m) => m.genres.includes('Sci-Fi'))).toBe(true);
     });
 
     it('should filter movies by minimum rating', () => {
@@ -125,7 +125,7 @@ describe('MoviesService', () => {
       const created = service.create({
         title: 'The Matrix',
         year: 1999,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         watchDate: '2024-01-15',
       });
 
@@ -145,7 +145,7 @@ describe('MoviesService', () => {
       const created = service.create({
         title: 'The Matrix',
         year: 1999,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         watchDate: '2024-01-15',
       });
 
@@ -178,7 +178,7 @@ describe('MoviesService', () => {
       const created = service.create({
         title: 'The Matrix',
         year: 1999,
-        genre: 'Sci-Fi',
+        genres: ['Sci-Fi'],
         watchDate: '2024-01-15',
       });
 
