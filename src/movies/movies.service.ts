@@ -27,8 +27,10 @@ export class MoviesService {
     let filteredMovies = this.movies;
 
     if (filters?.genre) {
-      filteredMovies = filteredMovies.filter(
-        (movie) => movie.genre.toLowerCase() === filters.genre!.toLowerCase(),
+      filteredMovies = filteredMovies.filter((movie) =>
+        movie.genres.some(
+          (g) => g.toLowerCase() === filters.genre!.toLowerCase(),
+        ),
       );
     }
 

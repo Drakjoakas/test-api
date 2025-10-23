@@ -6,6 +6,8 @@ import {
   Max,
   IsDateString,
   MaxLength,
+  IsArray,
+  ArrayMinSize,
 } from 'class-validator';
 
 export class CreateMovieDto {
@@ -18,9 +20,11 @@ export class CreateMovieDto {
   @Max(2100)
   year: number;
 
-  @IsString()
-  @MaxLength(50)
-  genre: string;
+  @IsArray()
+  @ArrayMinSize(1)
+  @IsString({ each: true })
+  @MaxLength(50, { each: true })
+  genres: string[]; // Changed from single genre to array
 
   @IsOptional()
   @IsNumber()
